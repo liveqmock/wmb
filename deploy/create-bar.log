@@ -1,0 +1,13 @@
+[2012/10/26/11:14:11] [INFO] CommandProcessor: process { mqsicreatebar arguments: } 
+[2012/10/26/11:14:11] [INFO] CommandProcessor: process { [-b, /develop/wmb/workspace/BARfiles/pub-sub.bar, -p, wmb, -o, wmb/Pub_Sub.msgflow, wmb/Pub_Sub_Compute.esql, -trace, -v, /develop/wmb/workspace/wmb/deploy/create-bar.log, -wmbtData] } 
+[2012/10/26/11:14:12] [INFO] CommandProcessor: process { Disable auto-build before opening the projects } 
+[2012/10/26/11:14:12] [INFO] CommandProcessor: openWorkspace {  } 
+[2012/10/26/11:14:12] [INFO] CommandProcessor: openWorkspace { List of projects to be processed: wmb } 
+[2012/10/26/11:14:13] [INFO] CommandProcessor: process { Enable auto-build after the projects are opened } 
+[2012/10/26/11:14:13] [INFO] CommandProcessor: waitForBuildsToComplete { Waiting for build to complete } 
+[2012/10/26/11:14:24] [INFO] CommandProcessor: process { Check the workspace error } 
+[2012/10/26/11:14:24] [INFO] CommandProcessor: doCompile {  } 
+[2012/10/26/11:14:24] [INFO] AddToBARFileOperation: barGeneratorDelegate { Adding wmb/Pub_Sub.msgflow to broker archive file } 
+[2012/10/26/11:14:24] [INFO] AddToBARFileOperation: barGeneratorDelegate { Adding wmb/Pub_Sub_Compute.esql to broker archive file } 
+[2012/10/26/11:14:24] [INFO] CommandProcessor: saveBar {  } 
+[2012/10/26/11:14:24] [INFO] CommandProcessor: closeWorkspace {  } 

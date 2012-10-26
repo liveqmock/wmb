@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project name="project" default="usage" basedir=".">
+	<property file="build.properties" />
+	<property environment="env" />
+	<property name="bars.basedir" value="${workspace.dir}/BARfiles" />
+	<property name="files" value="wmb/Pub_Sub.msgflow wmb/Pub_Sub_Compute.esql">
+	</property>
+	<tstamp>
+		<format property="CURRENT_TS" pattern="yyyyMMddhhMMss" />
+	</tstamp>
+	<import file="usage.xml" />
+	<import file="include.xml" />
+
+	<target name="init">
+		<reCreateDir dir="${bars.basedir}" />
+		<delete dir="${basedir}/${workspace}" />
+	</target>
+	<target name="build-deploy-pub-sub" depends="init">
+		<echo message="Building the pub-sub @ ${workspace.dir}" />
+		<build-deploy-bar workspace="${workspace.dir}" barname="${bars.basedir}/pub-sub.bar" projectname="wmb" files="wmb/Pub_Sub.msgflow wmb/Pub_Sub_Compute.esql" traceenable="true" tracefilepath="${basedir}/create-bar.log" />
+	</target>
+</project>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings>
+	<mapping>
+		<messageType typeCde="PS" subTypeCde="PP"></messageType>
+		<topics>
+			<topic topicString="HSBCNET/PAYMENT/PREPAYMENT"></topic>
+			<topic topicString="HSBCNET/PAYMENT/PREPAYMENT"></topic>
+		</topics>
+	</mapping>
+	<mapping>
+		<messageType typeCde="AI" subTypeCde="TS"></messageType>
+		<topics>
+			<topic topicString="HSBCNET/ACCTINFO/TRANSACTIONSUMMARY"></topic>
+			<topic topicString="HSBCNET/ACCTINFO/TRANSACTIONSUMMARY"></topic>
+		</topics>
+	</mapping>
+</mappings>

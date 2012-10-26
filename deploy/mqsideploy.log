@@ -1,0 +1,11 @@
+Usage
+./auto_deploy.sh brokername egname barName timeoutSecs
+./auto_deploy.sh WMBBRK EG1 /develop/wmb/workspace/BARfiles/pub-sub.bar 60
+Begin deploy bar with args:
+WMBBRK -e EG1 -a /develop/wmb/workspace/BARfiles/pub-sub.bar -w 60
+
+MQSI 8.0.0.0
+/opt/ibm/mqsi/8.0.0.0
+
+BIP1039I: Deploying BAR file '/develop/wmb/workspace/BARfiles/pub-sub.bar' to broker 'WMBBRK' (execution group 'EG1') ...
+BIP1092I: The broker successfully processed the deployment request.

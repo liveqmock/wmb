@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<project name="wmb-command-usage">
+	<target name="usage">
+		<echo>Automating Websphere Message Broker build and deployment using Ant</echo>
+		<echo>#################################################################</echo>
+		<echo><![CDATA[
+[root@localhost WMBT800]# ./mqsicreatebar
+BIP0955I Compile a broker archive file from source.
+Syntax: mqsicreatebar -data workspace -b barName [-version id] [-esql21]
+	[-p projectName [...]] [-o filePath1 [filePath2 [...]]]
+	[-a applicationName [...]] [-l libraryName [...]] [-skipWSErrorCheck]
+	[-deployAsSource] [-trace] [-v traceFilePath]
+Command Options:
+'-data workspace' workspace location (Mandatory)
+'-b barName' bar file name to create or replace
+'-cleanBuild' refresh the workspace projects and perform a clean build before adding
+'-version id' appends '_' and id to compiled names in the archive (optional)
+'-esql21' compile ESQL for brokers version 2.1 (optional)
+'-p projectName' specify projects containing files to link (optional, multiple
+	projects can be specified) 
+'-o filePath1' workspace relative path (including the project) of deployable
+	files to add to the broker archive. Multiple deployable files can be
+	compiled in a single mqsicreatebar command. (optional)
+'-a applicationName' specify application projects containing files to link
+	(optional, multiple projects can be specified) 
+'-l libraryName'  specify library projects containing files to link
+	(optional, multiple projects can be specified) 
+'-skipWSErrorCheck' to ignore the workspace error that is not related to the
+	required content to be put in the archive file (optional)
+'-trace' to display trace information for the command 
+'-deployAsSource' to deploy resources without compilation (if applicable)
+'-v traceFilePath' to specify output log file name or path where the tracing data will be written to. 
+	It is applicable only if the -trace option is set. If only file name or relative path is
+	specified then the file will be written to the default working directory.
+			]]></echo>
+		<echo>#################################################################</echo>
+		<echo><![CDATA[
+[rock@localhost bin]$ ./mqsideployscript
+
+BIP8841I: Deploys a BAR file or deletes resources from an execution group. 
+
+Syntax:  
+ mqsideploy brokerSpec -e egName ((-a BARFileName [-m]) | -d resourcesToDelete) [-w timeoutSecs] [-v traceFileName]  
+  
+ Command options:  
+ 'brokerSpec' is one of:  
+   (a) 'brokerName' : Name of a locally defined broker  
+   (b) '-n brokerFileName' : File containing remote broker connection parameters (*.broker)  
+   (c) '-i ipAddress -p port -q qMgr' : hostname, port and queue manager of a remote broker  
+ '-e egName' name of execution group  
+ '-a BARFileName' deploy the specified BAR file  
+ '-m' empties the execution group before deployment  
+ '-d resourcesToDelete' deletes a colon-separated list of resources from the execution group  
+ '-w timeoutSecs' maximum number of seconds to wait for the broker to respond (default is 60)  
+ '-v traceFileName' send verbose internal trace to the specified file.
+			
+			]]></echo>
+		<echo>#################################################################</echo>
+		<echo><![CDATA[
+[rock@localhost bin]$ ./mqsideploy
+
+BIP8841I: Deploys a BAR file or deletes resources from an execution group. 
+
+Syntax:  
+ mqsideploy brokerSpec -e egName ((-a BARFileName [-m]) | -d resourcesToDelete) [-w timeoutSecs] [-v traceFileName]  
+  
+ Command options:  
+ 'brokerSpec' is one of:  
+   (a) 'brokerName' : Name of a locally defined broker  
+   (b) '-n brokerFileName' : File containing remote broker connection parameters (*.broker)  
+   (c) '-i ipAddress -p port -q qMgr' : hostname, port and queue manager of a remote broker  
+ '-e egName' name of execution group  
+ '-a BARFileName' deploy the specified BAR file  
+ '-m' empties the execution group before deployment  
+ '-d resourcesToDelete' deletes a colon-separated list of resources from the execution group  
+ '-w timeoutSecs' maximum number of seconds to wait for the broker to respond (default is 60)  
+ '-v traceFileName' send verbose internal trace to the specified file.
+			]]></echo>
+		<echo>#################################################################</echo>
+		<echo><![CDATA[
+			
+			]]></echo>
+	</target>
+</project>

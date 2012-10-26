@@ -1,0 +1,51 @@
+CREATE COMPUTE MODULE Pub_Sub_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		DECLARE serviceGroupCode CHARACTER;
+		DECLARE serviceCategoryCode CHARACTER;
+
+		SET serviceGroupCode = InputRoot.XMLNSC.message.payload.serviceGroupCode;
+		SET serviceCategoryCode = InputRoot.XMLNSC.message.payload.serviceCategoryCode;		
+
+		DECLARE index,mappingNodeNumber INTEGER;
+		SET index = 1;
+		SET mappingNodeNumber=CARDINALITY(InputLocalEnvironment.Variables.meta.XMLNSC.mappings.mapping[]);
+		--Loop mapping node that matched serviceGroupCode/serviceCategoryCode
+		
+		DECLARE typeCde CHARACTER;
+		DECLARE subTypeCde CHARACTER;
+		DECLARE topicString CHARACTER;
+		
+		WHILE index <= mappingNodeNumber DO
+			DECLARE mapping REFERENCE TO InputLocalEnvironment.Variables.meta.XMLNSC.mappings.mapping[index];
+			
+			SET typeCde = mapping.messageType.typeCde;
+			SET subTypeCde = mapping.messageType.subTypeCde;
+			
+			IF typeCde = serviceGroupCode AND subTypeCde = serviceCategoryCode THEN
+				SET topicString = mapping.topic.topicString;
+
+				--publish to topic
+				SET OutputRoot.MQRFH2.psc.Command='publish';
+				SET OutputRoot.MQRFH2.psc.Topic=topicString;
+		
+				--build mq message
+				SET OutputRoot.MQRFH2.usr.message.payload.serviceGroupCode = InputRoot.XMLNSC.message.payload.serviceGroupCode;
+				SET OutputRoot.MQRFH2.usr.message.payload.serviceCategoryCode = InputRoot.XMLNSC.message.payload.serviceCategoryCode;
+				SET OutputRoot.MQRFH2.usr.message.payload.payment.debitAcct.acctNo = InputRoot.XMLNSC.message.payload.payment.debitAcct.acctNo;
+				SET OutputRoot.MQRFH2.usr.message.payload.payment.debitAcct.ccy = InputRoot.XMLNSC.message.payload.payment.debitAcct.ccy;
+				SET OutputRoot.MQRFH2.usr.message.payload.payment.creditAcct.acctNo = InputRoot.XMLNSC.message.payload.payment.creditAcct.acctNo;
+				SET OutputRoot.MQRFH2.usr.message.payload.payment.creditAcct.ccy = InputRoot.XMLNSC.message.payload.payment.creditAcct.ccy;
+				SET OutputRoot.MQRFH2.usr.message.payload.payment.creditTx.instdAmt.value = InputRoot.XMLNSC.message.payload.payment.creditTx.instdAmt.value;
+				SET OutputRoot.MQRFH2.usr.message.payload.payment.creditTx.instdAmt.ccy = InputRoot.XMLNSC.message.payload.payment.creditTx.instdAmt.ccy;
+				
+				RETURN TRUE;
+			END IF;	
+			
+			SET index = index + 1;
+		END WHILE;
+
+		RETURN TRUE;
+	END;
+END MODULE;

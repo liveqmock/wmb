@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<message>
+	<header />
+	<payload>
+		<serviceGroupCode>PS</serviceGroupCode>
+		<serviceCategoryCode>PP</serviceCategoryCode>
+		<payment>
+			<debitAcct>
+				<acctNo>0123456789</acctNo>
+				<ccy>RMB</ccy>
+			</debitAcct>
+			<creditAcct>
+				<acctNo>1123456789</acctNo>
+				<ccy>RMB</ccy>
+			</creditAcct>
+			<creditTx>
+				<instdAmt>
+					<value>11.00</value>
+					<ccy>GBP</ccy>
+				</instdAmt>
+			</creditTx>
+		</payment>
+	</payload>
+</message>

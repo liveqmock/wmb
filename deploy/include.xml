@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<project name="include" basedir=".">
+	<property file="build.properties" />
+	<path id="antcontrib.classpath" description="antcontrib classpath">
+		<fileset dir="${basedir}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<path refid="antcontrib.classpath" />
+		</classpath>
+	</taskdef>
+	<!--http://ant.apache.org/manual/Tasks/macrodef.html-->
+	<macrodef name="build-deploy-bar" description="create-deploy-bar">
+		<attribute name="workspace" />
+		<attribute name="barName" />
+		<attribute name="projectName" />
+		<attribute name="files" />
+		<attribute name="traceEnable" default="false" />
+		<attribute name="traceFilePath" default="" />
+		<attribute name="brokerName" default="${broker.name}" />
+		<attribute name="brokerFileName" default="${broker.filename}" />
+		<attribute name="remoteaIpAddress" default="${remotea.ipaddress}" />
+		<attribute name="remotePort" default="${remote.port}" />
+		<attribute name="remoteQMgr" default="${remote.qmgr}" />
+		<attribute name="egName" default="${broker.execution.group.name}" />
+		<attribute name="timeoutSecs" default="60" />
+
+		<sequential>
+			<property name="mqsicreatebar.cmd.file" value="${basedir}/mqsicreatebar.properties" />
+			<reCreateFile file="${mqsicreatebar.cmd.file}" />
+			<if>
+				<equals arg1="@{traceEnable}" arg2="true" />
+				<then>
+					<if>
+						<equals arg1="@{traceFilePath}" arg2="" />
+						<then>
+							<echo>If traceEnable=ture, traceFilePath need given value.</echo>
+						</then>
+						<else>
+							<property name="mqsicreatebar.cmd" value="-data @{workspace} -b @{barName} -p @{projectName} -o @{files} -trace -v @{traceFilePath}" />
+						</else>
+					</if>
+				</then>
+				<else>
+					<property name="mqsicreatebar.cmd" value="-data @{workspace} -b @{barName} -p @{projectName} -o @{files}" />
+				</else>
+			</if>
+			<echo file="${mqsicreatebar.cmd.file}" message="mqsicreatebar.cmd=${mqsicreatebar.cmd}" />
+			<property file="${mqsicreatebar.cmd.file}" />
+			<echo>Begin create bar file with args:${line.separator}${mqsicreatebar.cmd}</echo>
+			<exec executable="/bin/sh" spawn="false">
+				<env key="PATH" path="${env.PATH}" />
+				<arg value="-c" />
+				<arg value="${toolkit.home}/mqsicreatebar ${mqsicreatebar.cmd}" />
+			</exec>
+			<echo>End create bar file</echo>
+			<exec executable="/bin/sh" spawn="false">
+				<env key="PATH" path="${env.PATH}" />
+				<arg value="-c" />
+				<arg value="source ${broker.install.dir}/bin/mqsiprofile" />
+			</exec>
+			<echo>${MQSI_LILPATH}</echo>
+			<property name="mqsideploy.cmd.file" value="${basedir}/mqsideploy.properties" />
+			<reCreateFile file="${mqsideploy.cmd.file}" />
+			<property name="mqsideploy.cmd" value="@{brokerName} -e @{egName} -a @{barName} -w @{timeoutSecs}" />
+			<echo file="${mqsideploy.cmd.file}" message="mqsideploy.cmd=${mqsideploy.cmd}" />
+			<property file="${mqsideploy.cmd.file}" />
+			<echo>Begin deploy bar file with args:${line.separator}${mqsideploy.cmd}</echo>
+			<exec executable="${basedir}/auto_deploy.sh" spawn="false" output="mqsideploy.log">
+				<arg value="@{brokerName}" />
+				<arg value="@{egName}" />
+				<arg value="@{barName}" />
+				<arg value="@{timeoutSecs}" />
+			</exec>
+		</sequential>
+	</macrodef>
+	<macrodef name="reCreateFile" description="re-create file">
+		<attribute name="file" />
+		<sequential>
+			<delete file="${file}" />
+			<touch file="${file}" />
+		</sequential>
+	</macrodef>
+	<macrodef name="reCreateDir" description="re-create dir">
+		<attribute name="dir" />
+		<sequential>
+			<delete dir="${dir}" />
+			<mkdir dir="${dir}" />
+		</sequential>
+	</macrodef>
+
+</project>
