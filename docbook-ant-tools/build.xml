@@ -5,7 +5,7 @@
 	<property name="docbook.xsl.dir" value="${xsl.dir}/docbook" />
 	<property name="help.dir" value="${basedir}/help" />
 	<property name="doc.dir" value="${basedir}/doc" />
-	<property name="doc.main" value="${doc.dir}/wmb_dev_guide.xml" />
+	<property name="doc.main" value="${doc.dir}/main.xml" />
 	<property name="res.dir" value="${basedir}/res" />
 	<property name="out.dir" value="${basedir}/out" />
 	<property name="lib.dir" value="${basedir}/lib" />
@@ -48,12 +48,6 @@
 			<include name="*.jar" />
 		</fileset>
 		<fileset dir="${lib.dir}/common">
-			<include name="*.jar" />
-		</fileset>
-	</path>
-	
-	<path id="epubcheck.lib.classpath">
-		<fileset dir="${lib.dir}/epubcheck">
 			<include name="*.jar" />
 		</fileset>
 	</path>
@@ -159,27 +153,6 @@
 		</sequential>
 	</macrodef>
 	
-	<macrodef name="copy-epub-css">
-		<attribute name="dest"/>
-		<sequential>
-			<copy todir="${out.dir}/@{dest}/resources/">
-				<fileset file="${res.dir}/css/style.css" />
-			</copy>
-		</sequential>
-	</macrodef>
-
-	<target name="build-html" depends="init" description="Generates HTML files from DocBook XML">
-		<copy-res dest="html" />
-		<copy-css dest="html" />
-		<xsl-proc in="${doc.main}" style="${xsl.dir}/html.xsl" out="${out.dir}/html/index.html" />
-	</target>
-	
-	<target name="build-chunk" depends="init" description="Generates Chunk files from DocBook XML">
-		<copy-res dest="chunk" />
-		<copy-css dest="chunk" />
-		<xsl-proc in="${doc.main}" style="${xsl.dir}/chunk.xsl" out="${out.dir}/chunk/index.html" />
-	</target>
-
 	<taskdef name="fop" classname="org.apache.fop.tools.anttasks.Fop">
 		<classpath refid="fop.lib.classpath" />
 	</taskdef>
@@ -204,10 +177,6 @@
 			<replacevalue><![CDATA[http://xmlgraphics.apache.org/fop/extensions]]></replacevalue>
 		</replace>
 		<!--format xml using libxml2 command line-->
-		<exec executable="xmllint">
-			<arg line="--noblanks --format ${out.dir}/fo/index.fo.xml --output ${out.dir}/fo/index.fo.formated.xml"/>						
-		</exec>
-		
 		<condition property="${fo.formated.xml.exist}">
 				<available file="${out.dir}/fo/index.fo.formated.xml" type="file"></available>
 		</condition>
@@ -215,13 +184,9 @@
 	</target>
 
 	<target name="build-pdf" depends="build-fo" description="Generates PDF files from DocBook XML">
-		<fop format="application/pdf" fofile="${out.dir}/fo/index.fo.formated.xml"
+		<fop format="application/pdf" fofile="${out.dir}/fo/index.fo.xml"
 			outfile="${out.dir}/index-${CURRENT_DATE_TIME}.pdf" userconfig="${res.dir}/fonts/fop-conf.xml"
 			basedir="${out.dir}/fo" messagelevel="debug" logfiles="${out.dir}/fop.log"/>
-	</target>
-
-	<target name="build-rtf" depends="build-fo" description="Generates PDF files from DocBook XML">
-		<fop format="application/rtf" fofile="${out.dir}/fo/index.fo.xml" outfile="${out.dir}/index.rtf" userconfig="${res.dir}/fonts/fop-conf.xml" />
 	</target>
 
 	<target name="build-docx" depends="build-fo" description="Generates DOCX files from DocBook XML">
@@ -235,52 +200,6 @@
 		</java>
 	</target>
 	
-	<target name="build-epub" depends="init" description="Generates EPUB files from DocBook XML">
-		<xsl-proc in="${doc.main}" style="${xsl.dir}/epub.xsl" out="${out.dir}/epub/index.html" />
-		<move todir="${out.dir}/epub/OEBPS">
-			<fileset dir="${basedir}/OEBPS" />
-		</move>
-		<move todir="${out.dir}/epub/META-INF">
-			<fileset dir="${basedir}/META-INF" />
-		</move>
-		<copy-res dest="epub/OEBPS" />
-		<copy-epub-css dest="epub/OEBPS"/>
-		<!--
-		<copy tofile="${out.dir}/epub/OEBPS/resources/fonts/arial.ttf" file="${res.dir}/fonts/arial.ttf" />
-		<copy tofile="${out.dir}/epub/OEBPS/resources/fonts/consola.ttf" file="${res.dir}/fonts/consola.ttf" />
-		-->
-		<replace dir="${out.dir}/epub/OEBPS/" encoding="UTF-8">
-			<include name="**/*.html"/>
-			<replacetoken><![CDATA[<html xmlns="http://www.w3.org/1999/xhtml"><head><title>]]></replacetoken>
-			<replacevalue><![CDATA[<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN"><head><title>]]></replacevalue>
-		</replace>
-		<delete file="${out.dir}/epub/index.html" />
-		<mkdir dir="${out.dir}/tmp/"/>
-		<echo message="application/epub+zip" file="${out.dir}/tmp/mimetype"/>
-		<zip destfile="${out.dir}/tmp/temp.mimetype" basedir="${out.dir}/tmp" compress="false" includes="mimetype" />
-		<zip destfile="${out.dir}/tmp/temp.zip" basedir="${out.dir}/epub/" level="9" compress="true" />
-		<zip destfile="${out.dir}/index.epub" update="true" keepcompression="true" encoding="UTF-8" excludes="*.html">
-			<zipfileset src="${out.dir}/tmp/temp.mimetype" />
-			<zipfileset src="${out.dir}/tmp/temp.zip" />
-		</zip>
-		
-		<delete dir="${out.dir}/tmp/" />
-		
-		<!--
-		<java classname="com.adobe.epubcheck.tool.Checker" fork="yes">
-			<arg line="${out.dir}/index.epub"/>
-			<classpath>
-				<path refid="epubcheck.classpath"/>
-			</classpath>
-		</java>
-		-->
-		
-	</target>
-	
-	<!--
-	build-html, build-chunk, build-pdf, build-rtf, build-docx, build-epub
-	-->
-	<target name="build" depends="build-html, build-chunk, build-pdf, build-rtf, build-docx, build-epub" description="Generates All files from DocBook XML" />
 	<target name="build-dist">
 		<zip destfile="docbook-ant-tools-${dist.version}.zip">
 			<zipfileset dir="${basedir}" prefix="docbook-ant-tools">

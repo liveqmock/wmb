@@ -1258,15 +1258,6 @@
                    |comment()[not(preceding-sibling::callout)]
                    |processing-instruction()[not(preceding-sibling::callout)]"/>
 
-<!-- 
-		<fo:block 
-		space-before.optimum="1em" 
-		space-before.minimum="0.8em" 
-		space-before.maximum="1.2em" 
-		start-indent="0.5in" 
-		text-indent="-0.5in" 
-		id="BI_001">
- -->
 
     <fo:list-block space-before.optimum="0em"
                    space-before.minimum="0em"

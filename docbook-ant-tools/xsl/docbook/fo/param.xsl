@@ -150,9 +150,6 @@
     </xsl:choose>
   </xsl:attribute>
   <xsl:attribute name="start-indent"><xsl:value-of select="$title.margin.left"/></xsl:attribute>
-  <xsl:attribute name="font-family">
-     <xsl:value-of select="$title.font.family" />
-  </xsl:attribute>
 </xsl:attribute-set>
 <xsl:attribute-set name="component.titlepage.properties">
 </xsl:attribute-set>
@@ -173,7 +170,7 @@
 <xsl:param name="default.table.rules">none</xsl:param>
 <xsl:param name="default.units">pt</xsl:param>
 <xsl:param name="dingbat.font.family">serif</xsl:param>
-<xsl:param name="double.sided" select="1"/>
+<xsl:param name="double.sided" select="0"/>
 <xsl:param name="draft.mode">no</xsl:param>
 <xsl:param name="draft.watermark.image">images/draft.png</xsl:param>
 
@@ -398,7 +395,7 @@ set       toc,title
 
 <xsl:param name="keep.relative.image.uris" select="0"/>
 <xsl:param name="l10n.gentext.default.language">en</xsl:param>
-<xsl:param name="l10n.gentext.language" select='zh_cn'/>
+<xsl:param name="l10n.gentext.language"/>
 <xsl:param name="l10n.gentext.use.xref.language" select="0"/>
 <xsl:param name="l10n.lang.value.rfc.compliant" select="1"/>
 <xsl:param name="label.from.part" select="0"/>
@@ -418,13 +415,6 @@ set       toc,title
   <xsl:attribute name="space-after.optimum">0em</xsl:attribute>
   <xsl:attribute name="space-after.minimum">0em</xsl:attribute>
   <xsl:attribute name="space-after.maximum">0em</xsl:attribute>
-	<xsl:attribute name="margin-left">
-      <xsl:choose>
-        <xsl:when test="self::itemizedlist">0pt</xsl:when>
-        <xsl:when test="self::variablelist">0pt</xsl:when>
-        <xsl:otherwise>20pt</xsl:otherwise>
-      </xsl:choose>
-    </xsl:attribute>
 </xsl:attribute-set>
 <xsl:attribute-set name="list.item.spacing">
   <xsl:attribute name="space-before.optimum">0em</xsl:attribute>
@@ -462,7 +452,6 @@ set       toc,title
 <xsl:param name="monospace.verbatim.font.width">0.60em</xsl:param>
 <xsl:param name="nominal.table.width">6in</xsl:param>
 <xsl:attribute-set name="normal.para.spacing">
-  <xsl:attribute name="text-indent">0em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0em</xsl:attribute>
   <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
   <xsl:attribute name="space-before.maximum">0em</xsl:attribute>
@@ -791,7 +780,6 @@ set       toc,title
   <xsl:attribute name="space-before.maximum">0em</xsl:attribute>
   <xsl:attribute name="text-align">start</xsl:attribute>
   <xsl:attribute name="start-indent"><xsl:value-of select="$title.margin.left"/></xsl:attribute>
-  <xsl:attribute name="font-style">normal</xsl:attribute>
 </xsl:attribute-set>
 <xsl:attribute-set name="section.level1.properties" use-attribute-sets="section.properties">
 </xsl:attribute-set>
@@ -872,8 +860,6 @@ set       toc,title
 <xsl:param name="table.frame.border.thickness">0.5pt</xsl:param>
 <xsl:attribute-set name="table.properties" use-attribute-sets="formal.object.properties">
   <xsl:attribute name="keep-together.within-column">auto</xsl:attribute>
-  <xsl:attribute name="font-weight">normal</xsl:attribute>
-  <xsl:attribute name="font-style">normal</xsl:attribute>
 </xsl:attribute-set>
 <xsl:param name="tablecolumns.extension" select="1"/>
 <xsl:attribute-set name="table.table.properties">

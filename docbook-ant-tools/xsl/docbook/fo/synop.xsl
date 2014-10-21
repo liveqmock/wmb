@@ -167,15 +167,6 @@
     <xsl:call-template name="funcsynopsis.style"/>
   </xsl:variable>
 
-<!-- 
-		<fo:block 
-		space-before.optimum="1em" 
-		space-before.minimum="0.8em" 
-		space-before.maximum="1.2em" 
-		start-indent="0.5in" 
-		text-indent="-0.5in" id="BI_001">
- -->
-
   <fo:block font-family="{$monospace.font.family}"
           space-before.minimum="0.8em"
           space-before.optimum="1em"

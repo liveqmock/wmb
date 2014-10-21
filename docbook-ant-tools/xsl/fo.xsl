@@ -19,23 +19,30 @@
 	</xsl:template>
 	
 	<xsl:param name="fop1.extensions" select="1" />
+	<!--
 	<xsl:param name="fop.extensions">1</xsl:param>
+	-->
 	
 
 	<xsl:param name="ulink.hyphenate">&#x200b;</xsl:param>
 	<xsl:param name="ulink.hyphenate.chars">/&amp;?</xsl:param>
 
 	<xsl:param name="paper.type">A4</xsl:param>
+	<!--
 	<xsl:param name="page.margin.inner">2cm</xsl:param>
 	<xsl:param name="page.margin.outer">2cm</xsl:param>
 	<xsl:param name="region.before.extent">0.88in</xsl:param>
 	<xsl:param name="body.margin.top">0.93in</xsl:param>
 	<xsl:param name="body.margin.bottom">0.83in</xsl:param>
 	<xsl:param name="region.after.extent">0.78in</xsl:param>
+	-->
+	
 
 	<xsl:param name="body.font.family">'Times','SimSun'</xsl:param>
+	<!--
 	<xsl:param name="body.font.master">10</xsl:param>
 	<xsl:param name="footnote.font.size">9</xsl:param>
+	-->
 	
 	<xsl:param name="title.font.family">'Helvetica','DroidSansFallback'</xsl:param>
 	<xsl:param name="dingbat.font.family">'Helvetica','DroidSansFallback'</xsl:param>
@@ -53,6 +60,7 @@
 	 -->
 
 
+	<xsl:param name="draft.mode">no</xsl:param>
 
 	<xsl:param name="ulink.footnotes" select="0" />
 	<xsl:param name="ulink.show" select="0" />
@@ -137,11 +145,13 @@
 		<xsl:attribute name="text-align">center</xsl:attribute>
 	</xsl:attribute-set>
 	
+	<!-- 
 	<xsl:attribute-set name="normal.para.spacing">
 		<xsl:attribute name="text-indent">0em</xsl:attribute>
 		<xsl:attribute name="space-before.optimum">0em</xsl:attribute>
 		<xsl:attribute name="space-before.minimum">0em</xsl:attribute>
 		<xsl:attribute name="space-before.maximum">0em</xsl:attribute>
 	</xsl:attribute-set>
+	-->
 
 </xsl:stylesheet>
