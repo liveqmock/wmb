@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book version="5.0" xml:lang="zh_CN" xmlns="http://docbook.org/ns/docbook"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xl="http://www.w3.org/1999/xlink"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns5="http://www.w3.org/1999/xhtml"
+	xmlns:ns4="http://www.w3.org/1998/Math/MathML" xmlns:ns3="http://www.w3.org/2000/svg"
+	xmlns:ns2="http://www.beanio.org/2012/03" xmlns:ns="http://docbook.org/ns/docbook">
+	<dedication>
+		<para>This book is dedicated to you.</para>
+	</dedication>
+
+	<xi:include href="chapters/bookinfo.xml" />
+	<xi:include href="chapters/preface.xml" />
+	<xi:include href="chapters/rev_history.xml" />
+	<xi:include href="chapters/charpter1.xml" />
+
+
+</book>

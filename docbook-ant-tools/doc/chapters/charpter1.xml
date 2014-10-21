@@ -1,0 +1,68 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xl="http://www.w3.org/1999/xlink" xml:id="ch01_build_env">
+	<title>Environment</title>
+	<section>
+		<title>Environment</title>
+		<formalpara>
+			<title>段落的标题</title>
+			<para>段落的内容</para>
+		</formalpara>
+		<itemizedlist>
+			<listitem>
+				<para>Postgresql 9</para>
+			</listitem>
+			<listitem>
+				<para>Tomcat 7</para>
+			</listitem>
+
+			<listitem>
+				<para>Spring Core</para>
+			</listitem>
+
+			<listitem>
+				<para>Spring WebMvc</para>
+			</listitem>
+
+			<listitem>
+				<para>Spring WebFlow</para>
+			</listitem>
+
+			<listitem>
+				<para>Spring Batch</para>
+
+				<figure>
+					<title>Spring batch tier</title>
+					<mediaobject>
+						<imageobject>
+							<imagedata contentdepth="100%" width="100%" scalefit="1"
+								fileref="resources/images/spring-batch-tier.jpg" />
+						</imageobject>
+					</mediaobject>
+				</figure>
+				<para>BeanIO</para>
+				<note>
+					<para>BeanIo to support xml,fixedlength,csv, enhance to support
+						xls/xls
+					</para>
+				</note>
+			</listitem>
+
+			<listitem>
+				<para>Spring Data JPA</para>
+			</listitem>
+
+			<listitem>
+				<para>Hibernate</para>
+			</listitem>
+
+			<listitem>
+				<para>JSF2</para>
+			</listitem>
+
+		</itemizedlist>
+	</section>
+	<section>
+		<title>正确的集成命令</title>
+		<para>在持续集成服务器上使用怎样的 mvn 命令集成项目，这个问题乍一看答案很显然，不就是 mvn clean install么？事实上比较好的集成命令会稍微复杂些，下面是一些总结：</para>
+	</section>
+</chapter>	

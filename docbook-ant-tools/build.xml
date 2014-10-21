@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build-pdf">
+	<property file="build.properties" />
+	<property name="xsl.dir" value="${basedir}/xsl" />
+	<property name="docbook.xsl.dir" value="${xsl.dir}/docbook" />
+	<property name="help.dir" value="${basedir}/help" />
+	<property name="doc.dir" value="${basedir}/doc" />
+	<property name="doc.main" value="${doc.dir}/wmb_dev_guide.xml" />
+	<property name="res.dir" value="${basedir}/res" />
+	<property name="out.dir" value="${basedir}/out" />
+	<property name="lib.dir" value="${basedir}/lib" />
+	<property name="dist.version" value="1.5.0" />
+	
+	<tstamp>
+		<format property="CURRENT_DATE_TIME" pattern="yyyyMMddhhMM"/>
+	</tstamp>
+
+	<path id="saxon.lib.classpath">
+		<fileset dir="${lib.dir}/saxon">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${lib.dir}/common">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement location="${docbook.xsl.dir}/extensions/saxon65.jar" />
+	</path>
+	
+	<path id="fop.lib.classpath">
+		<fileset dir="${lib.dir}/fop">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${lib.dir}/common">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<path id="xalan.lib.classpath">
+		<fileset dir="${lib.dir}/xalan">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${lib.dir}/common">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<path id="xfc.lib.classpath">
+		<fileset dir="${lib.dir}/xfc">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${lib.dir}/common">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<path id="epubcheck.lib.classpath">
+		<fileset dir="${lib.dir}/epubcheck">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<target name="detect">
+		<condition property="${doc.not.exist}">
+			<not>
+				<available file="${doc.dir}" type="dir"></available>
+			</not>
+		</condition>
+	</target>
+	
+	<target name="copy-doc-help" if="${doc.not.exist}" depends="detect">
+		<copy todir="${doc.dir}">
+			<fileset dir="${help.dir}" />
+		</copy>
+	</target>
+
+	<target name="init" depends="copy-doc-help">
+		<delete dir="${out.dir}" />
+		<mkdir dir="${out.dir}" />
+	</target>
+	
+	<macrodef name="xsl-proc">
+		<attribute name="in"/>
+		<attribute name="out"/>
+		<attribute name="style"/>
+		<sequential>
+			<echo>Transform XML from @{in} to @{out} using XSL @{style}.</echo>
+			<!--
+			<java classname="org.apache.xalan.xslt.Process" fork="yes">
+				<sysproperty key="org.apache.xerces.xni.parser.XMLParserConfiguration" value="org.apache.xerces.parsers.XIncludeParserConfiguration" />
+				<sysproperty key="xslthl.config" value="file:///${docbook.xsl.dir}/highlighting/xslthl-config.xml" />
+				<arg line="-out @{out}"/>
+				<arg line="-in @{in}"/>
+				<arg line="-xsl @{style}"/>
+				<arg line="-param use.extensions 1"/>
+				<arg line="-v"/>
+				<classpath>
+					<path refid="xalan.classpath"/>
+				</classpath>
+			</java>
+			-->
+			
+			<java classname="com.icl.saxon.StyleSheet" fork="yes">
+				<sysproperty key="javax.xml.parsers.DocumentBuilderFactory" value="org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" />
+				<sysproperty key="javax.xml.parsers.SAXParserFactory" value="org.apache.xerces.jaxp.SAXParserFactoryImpl" />
+				<sysproperty key="org.apache.xerces.xni.parser.XMLParserConfiguration" value="org.apache.xerces.parsers.XIncludeParserConfiguration" />
+				<sysproperty key="xslthl.config" value="file:///${docbook.xsl.dir}/highlighting/xslthl-config.xml" />
+				<arg line="-o @{out}"/>
+				<arg line=" @{in}"/>
+				<arg line=" @{style}"/>
+				<arg line=" use.extensions=1"/>
+				<arg line=" textinsert.extension=1" />
+				<classpath>
+					<path refid="saxon.lib.classpath"/>
+				</classpath>
+			</java>
+			
+			<!--
+			<xslt in="@{in}" style="@{style}" out="@{out}">
+				<classpath refid="xalan.classpath" />
+				<sysproperty key="org.apache.xerces.xni.parser.XMLParserConfiguration" value="org.apache.xerces.parsers.XIncludeParserConfiguration" />
+			</xslt>
+			-->
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="copy-res">
+		<attribute name="dest"/>
+		<sequential>
+			<mkdir dir="${out.dir}/@{dest}" />
+			<copy todir="${out.dir}/@{dest}/resources">
+				<fileset dir="${doc.dir}/resources" />
+			</copy>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="copy-admonitions">
+		<attribute name="dest"/>
+		<sequential>
+			<copy todir="${out.dir}/@{dest}/resources/admonitions">
+				<fileset dir="${res.dir}/admonitions" />
+			</copy>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="copy-callouts">
+		<attribute name="dest"/>
+		<sequential>
+			<copy todir="${out.dir}/@{dest}/resources/callouts">
+				<fileset dir="${res.dir}/callouts" />
+			</copy>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="copy-css">
+		<attribute name="dest"/>
+		<sequential>
+			<copy todir="${out.dir}/@{dest}/resources/">
+				<fileset file="${res.dir}/css/style.css" />
+			</copy>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="copy-epub-css">
+		<attribute name="dest"/>
+		<sequential>
+			<copy todir="${out.dir}/@{dest}/resources/">
+				<fileset file="${res.dir}/css/style.css" />
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<target name="build-html" depends="init" description="Generates HTML files from DocBook XML">
+		<copy-res dest="html" />
+		<copy-css dest="html" />
+		<xsl-proc in="${doc.main}" style="${xsl.dir}/html.xsl" out="${out.dir}/html/index.html" />
+	</target>
+	
+	<target name="build-chunk" depends="init" description="Generates Chunk files from DocBook XML">
+		<copy-res dest="chunk" />
+		<copy-css dest="chunk" />
+		<xsl-proc in="${doc.main}" style="${xsl.dir}/chunk.xsl" out="${out.dir}/chunk/index.html" />
+	</target>
+
+	<taskdef name="fop" classname="org.apache.fop.tools.anttasks.Fop">
+		<classpath refid="fop.lib.classpath" />
+	</taskdef>
+
+	<target name="read-font" depends="init">
+		<java classname="org.apache.fop.tools.fontlist.FontListMain" fork="yes">
+			<arg line="-c ${res.dir}/fonts/fop-conf.xml" />
+			<arg line="${out.dir}/font-sample.pdf" />
+			<classpath>
+				<path refid="fop.lib.classpath" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="build-fo" depends="init">
+		<copy-res dest="fo" />
+		<copy-admonitions dest="fo"/>
+		<copy-callouts dest="fo"/>
+		<xsl-proc in="${doc.main}" style="${xsl.dir}/fo.xsl" out="${out.dir}/fo/index.fo.xml" />
+		<replace file="${out.dir}/fo/index.fo.xml" encoding="UTF-8">
+			<replacetoken><![CDATA[http://xml.apache.org/fop/extensions]]></replacetoken>
+			<replacevalue><![CDATA[http://xmlgraphics.apache.org/fop/extensions]]></replacevalue>
+		</replace>
+		<!--format xml using libxml2 command line-->
+		<exec executable="xmllint">
+			<arg line="--noblanks --format ${out.dir}/fo/index.fo.xml --output ${out.dir}/fo/index.fo.formated.xml"/>						
+		</exec>
+		
+		<condition property="${fo.formated.xml.exist}">
+				<available file="${out.dir}/fo/index.fo.formated.xml" type="file"></available>
+		</condition>
+		
+	</target>
+
+	<target name="build-pdf" depends="build-fo" description="Generates PDF files from DocBook XML">
+		<fop format="application/pdf" fofile="${out.dir}/fo/index.fo.formated.xml"
+			outfile="${out.dir}/index-${CURRENT_DATE_TIME}.pdf" userconfig="${res.dir}/fonts/fop-conf.xml"
+			basedir="${out.dir}/fo" messagelevel="debug" logfiles="${out.dir}/fop.log"/>
+	</target>
+
+	<target name="build-rtf" depends="build-fo" description="Generates PDF files from DocBook XML">
+		<fop format="application/rtf" fofile="${out.dir}/fo/index.fo.xml" outfile="${out.dir}/index.rtf" userconfig="${res.dir}/fonts/fop-conf.xml" />
+	</target>
+
+	<target name="build-docx" depends="build-fo" description="Generates DOCX files from DocBook XML">
+		<java classname="com.xmlmind.fo.converter.Driver" fork="yes">
+			<arg line="-outputFormat=docx " />
+			<arg line="${out.dir}/fo/index.fo.xml" />
+			<arg line="${out.dir}/index.docx" />
+			<classpath>
+				<path refid="xfc.lib.classpath" />
+			</classpath>
+		</java>
+	</target>
+	
+	<target name="build-epub" depends="init" description="Generates EPUB files from DocBook XML">
+		<xsl-proc in="${doc.main}" style="${xsl.dir}/epub.xsl" out="${out.dir}/epub/index.html" />
+		<move todir="${out.dir}/epub/OEBPS">
+			<fileset dir="${basedir}/OEBPS" />
+		</move>
+		<move todir="${out.dir}/epub/META-INF">
+			<fileset dir="${basedir}/META-INF" />
+		</move>
+		<copy-res dest="epub/OEBPS" />
+		<copy-epub-css dest="epub/OEBPS"/>
+		<!--
+		<copy tofile="${out.dir}/epub/OEBPS/resources/fonts/arial.ttf" file="${res.dir}/fonts/arial.ttf" />
+		<copy tofile="${out.dir}/epub/OEBPS/resources/fonts/consola.ttf" file="${res.dir}/fonts/consola.ttf" />
+		-->
+		<replace dir="${out.dir}/epub/OEBPS/" encoding="UTF-8">
+			<include name="**/*.html"/>
+			<replacetoken><![CDATA[<html xmlns="http://www.w3.org/1999/xhtml"><head><title>]]></replacetoken>
+			<replacevalue><![CDATA[<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN"><head><title>]]></replacevalue>
+		</replace>
+		<delete file="${out.dir}/epub/index.html" />
+		<mkdir dir="${out.dir}/tmp/"/>
+		<echo message="application/epub+zip" file="${out.dir}/tmp/mimetype"/>
+		<zip destfile="${out.dir}/tmp/temp.mimetype" basedir="${out.dir}/tmp" compress="false" includes="mimetype" />
+		<zip destfile="${out.dir}/tmp/temp.zip" basedir="${out.dir}/epub/" level="9" compress="true" />
+		<zip destfile="${out.dir}/index.epub" update="true" keepcompression="true" encoding="UTF-8" excludes="*.html">
+			<zipfileset src="${out.dir}/tmp/temp.mimetype" />
+			<zipfileset src="${out.dir}/tmp/temp.zip" />
+		</zip>
+		
+		<delete dir="${out.dir}/tmp/" />
+		
+		<!--
+		<java classname="com.adobe.epubcheck.tool.Checker" fork="yes">
+			<arg line="${out.dir}/index.epub"/>
+			<classpath>
+				<path refid="epubcheck.classpath"/>
+			</classpath>
+		</java>
+		-->
+		
+	</target>
+	
+	<!--
+	build-html, build-chunk, build-pdf, build-rtf, build-docx, build-epub
+	-->
+	<target name="build" depends="build-html, build-chunk, build-pdf, build-rtf, build-docx, build-epub" description="Generates All files from DocBook XML" />
+	<target name="build-dist">
+		<zip destfile="docbook-ant-tools-${dist.version}.zip">
+			<zipfileset dir="${basedir}" prefix="docbook-ant-tools">
+			<exclude name="doc/" />
+			<exclude name="out/" />
+			<exclude name="*.zip" />
+			<exclude name="build.properties" />
+			<exclude name=".*" />
+			<exclude name=".*/" />
+		</zipfileset>
+		</zip>
+		<checksum file="docbook-ant-tools-${dist.version}.zip" algorithm="SHA-1" property="dist.sha1.sum"/>
+		<echo>${dist.sha1.sum}</echo>
+	</target>
+
+
+</project>
