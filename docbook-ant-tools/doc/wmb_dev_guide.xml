@@ -12,6 +12,14 @@
 	<xi:include href="chapters/preface.xml" />
 	<xi:include href="chapters/rev_history.xml" />
 	<xi:include href="chapters/charpter1.xml" />
+	<xi:include href="chapters/concept-principle.xml" />
+	<xi:include href="chapters/software-installation.xml" />
+	<xi:include href="chapters/managment-control.xml" />
+	<xi:include href="chapters/pre-develoment.xml" />
+	<xi:include href="chapters/message-flow-design.xml" />
+	
+
+
 
 
 </book>

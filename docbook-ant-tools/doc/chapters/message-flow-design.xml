@@ -1,0 +1,100 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xl="http://www.w3.org/1999/xlink" xml:id="message-flow-design">
+	<title>消息流设计</title>
+
+	<section>
+		<title>逻辑树</title>
+		<section>
+			<title>Message</title>
+		</section>
+		<section>
+			<title>Environment</title>
+		</section>
+		<section>
+			<title>LocalEnvironment</title>
+		</section>
+		<section>
+			<title>ExceptionList</title>
+		</section>
+		<section>
+			<title>逻辑树的引用</title>
+		</section>
+	</section>
+
+	<section>
+		<title>内置节点</title>
+		<section>
+			<title>节点列表</title>
+		</section>
+		<section>
+			<title>设计说明</title>
+		</section>
+	</section>
+
+
+	<section>
+		<title>设计模式</title>
+		<section>
+			<title>Reply</title>
+		</section>
+		<section>
+			<title>Get</title>
+		</section>
+		<section>
+			<title>Filter</title>
+		</section>
+		<section>
+			<title>FlowOrder</title>
+		</section>
+		<section>
+			<title>RouteToLable</title>
+		</section>
+		<section>
+			<title>DestinationList</title>
+		</section>
+		<section>
+			<title>MsgStructure</title>
+		</section>
+		<section>
+			<title>Aggregate</title>
+		</section>
+		<section>
+			<title>Timeout</title>
+		</section>
+		<section>
+			<title>UserException</title>
+		</section>
+		<section>
+			<title>SubFlow</title>
+		</section>
+		<section>
+			<title>JMSTransformation</title>
+		</section>
+		<section>
+			<title>XMLTransformation</title>
+		</section>
+	</section>
+
+	<section>
+		<title>设计模式</title>
+		<section>
+			<title>Database,Filter,Compute</title>
+		</section>
+		<section>
+			<title>DataInsert,DataUpdate,DataDelte</title>
+		</section>
+		<section>
+			<title>Warehouse</title>
+		</section>
+		<section>
+			<title>访问多个数据源</title>
+		</section>
+		<section>
+			<title></title>
+		</section>
+		<section>
+			<title></title>
+		</section>
+		
+	</section>
+</chapter>	

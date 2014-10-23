@@ -1,0 +1,49 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xl="http://www.w3.org/1999/xlink" xml:id="concept-principle">
+	<title>概念与原理</title>
+
+	<section>
+		<title>简介</title>
+	</section>
+	<section>
+		<title>概念与对象</title>
+		<section>
+			<title>消息流(Message Flow)</title>
+		</section>
+		<section>
+			<title>消息集(Message Set)</title>
+		</section>
+		<section>
+			<title>执行组(Execution Group)</title>
+		</section>
+		<section>
+			<title>代理(Broker)</title>
+		</section>
+		<section>
+			<title>配置管理器(Configuration Manager)</title>
+		</section>
+		<section>
+			<title>用户名服务器(User Name Server)</title>
+		</section>
+		<section>
+			<title>代理域(Broker Domain)</title>
+		</section>
+		<section>
+			<title>开发工具(Toolkit)</title>
+		</section>
+	</section>
+
+	<section>
+		<title>工作环境</title>
+			<section>
+		<title>運行环境</title>
+	</section>
+		
+			<section>
+		<title>开发环境</title>
+	</section>
+		
+	</section>
+
+
+</chapter>	

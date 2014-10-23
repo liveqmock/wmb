@@ -5,7 +5,7 @@
 	<property name="docbook.xsl.dir" value="${xsl.dir}/docbook" />
 	<property name="help.dir" value="${basedir}/help" />
 	<property name="doc.dir" value="${basedir}/doc" />
-	<property name="doc.main" value="${doc.dir}/main.xml" />
+	<property name="doc.main" value="${doc.dir}/wmb_dev_guide.xml" />
 	<property name="res.dir" value="${basedir}/res" />
 	<property name="out.dir" value="${basedir}/out" />
 	<property name="lib.dir" value="${basedir}/lib" />

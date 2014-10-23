@@ -1,0 +1,32 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xl="http://www.w3.org/1999/xlink" xml:id="software-installation">
+	<title>软件安装</title>
+
+	<section>
+		<title>环境要求</title>
+	</section>
+	<section>
+		<title>安装过程</title>
+		<section>
+			<title>WebSphere Eclipse Platform</title>
+		</section>
+		<section>
+			<title>WebSphere MQ</title>
+		</section>
+		<section>
+			<title>WebSphere Message Broker</title>
+		</section>
+		<section>
+			<title>WebSphere Message Broker Toolkit</title>
+		</section>
+	</section>
+
+	<section>
+		<title>检查安装</title>
+		<section>
+			<title>安装版本</title>
+		</section>
+	</section>
+
+
+</chapter>	
