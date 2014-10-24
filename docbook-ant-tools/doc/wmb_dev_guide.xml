@@ -18,8 +18,19 @@
 	<xi:include href="chapters/pre-develoment.xml" />
 	<xi:include href="chapters/message-flow-design.xml" />
 	
+	<xi:include href="chapters/messageset.xml" />
+	
 
+	<xi:include href="chapters/esql.xml" />
+	<xi:include href="chapters/extend.xml" />
+	<xi:include href="chapters/cmp.xml" />
 
+	<xi:include href="chapters/pub-sub.xml" />
+	<xi:include href="chapters/security.xml" />
+
+	<xi:include href="chapters/exitus.xml" />
+	<xi:include href="chapters/diagnosis.xml" />
+	<xi:include href="chapters/monitoring-tuning.xml" />			
 
 
 </book>

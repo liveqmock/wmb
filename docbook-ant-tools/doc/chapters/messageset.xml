@@ -1,0 +1,105 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xl="http://www.w3.org/1999/xlink"
+	xml:id="messageset">
+	<title>消息集</title>
+	<section>
+		<title>消息格式模型</title>
+		<section>
+			<title>解析器和消息域(Parser Domain)</title>
+		</section>
+		<section>
+			<title>消息集(Message Set)</title>
+		</section>
+		<section>
+			<title>消息定义文件(Message Definition File)</title>
+		</section>
+		<section>
+			<title>消息对象(Object)</title>
+		</section>
+		<section>
+			<title>元素引用(Reference)</title>
+		</section>
+		<section>
+			<title>格式验证(Validation)</title>
+		</section>
+		<section>
+			<title>结构组成(Composition)</title>
+		</section>
+		<section>
+			<title>简单类型(Simple Type)</title>
+		</section>
+		<section>
+			<title>数值约束(Value Constraints)</title>
+		</section>
+		<section>
+			<title>类型继承(Inheritance)</title>
+		</section>
+		<section>
+			<title>元素替代(Substitution)</title>
+		</section>
+		<section>
+			<title>通配符(Wildcard)</title>
+		</section>
+		<section>
+			<title>JVM terminated</title>
+			<para>
+ Any time I try to use help from within Explorer I there is a long pause then Explorer fails and I get the following message:
+JVM terminated. Exit code=160
+/opt/mqm/eclipseSDK33/eclipse/../../java/jre/bin/javaw
+-Xj9
+-Xmx512M
+-DMQCHLLIB=
+-DMQCHLTAB=
+-D"java.library.path=/opt/mqm/java/lib:/opt/mqm/lib"
+-jar /opt/mqm/eclipseSDK33/eclipse/plugins/org.eclipse.equinox.launcher_1.0.1.R33x_v20070828.jar
+-os linux
+-ws gtk
+-arch x86
+-showsplash
+-launcher /opt/mqm/eclipseSDK33/eclipse/eclipse
+-name Eclipse
+--launcher.library /opt/mqm/eclipseSDK33/eclipse/plugins/org.eclipse.equinox.launcher.gtk.linux.x86_1.0.2.R331_v20071019/eclipse_1021.so
+-startup /opt/mqm/eclipseSDK33/eclipse/plugins/org.eclipse.equinox.launcher_1.0.1.R33x_v20070828.jar
+-exitdata 4e0001
+-product com.ibm.mq.explorer.ui.rcp.RcpApplication
+-data /home/maryann/.mqdata
+-vm /opt/mqm/eclipseSDK33/eclipse/../../java/jre/bin/javaw
+-vmargs
+-Xj9
+-Xmx512M
+-DMQCHLLIB=
+-DMQCHLTAB=
+-D"java.library.path=/opt/mqm/java/lib:/opt/mqm/lib"
+-jar /opt/mqm/eclipseSDK33/eclipse/plugins/org.eclipse.equinox.launcher_1.0.1.R33x_v20070828.jar
+Any help would be appreciated. 			
+			</para>
+		</section>
+		<section>
+			<title></title>
+		</section>
+	</section>
+	<section>
+		<title>物理消息格式</title>
+		<section>
+			<title>XML</title>
+		</section>
+		<section>
+			<title>CWF</title>
+		</section>
+		<section>
+			<title>TDS</title>
+		</section>
+	</section>
+	<section>
+		<title>JMS通信</title>
+		<section>
+			<title>消息格式</title>
+		</section>
+		<section>
+			<title>消息类型</title>
+		</section>
+		<section>
+			<title>消息举例</title>
+		</section>
+	</section>
+
+</chapter>	
